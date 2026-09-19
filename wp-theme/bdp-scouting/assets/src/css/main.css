@@ -1,0 +1,20 @@
+/*
+ * Ported from Resources/Private/Sources/Css/main.css. Tailwind v4 scans the
+ * theme's own PHP/TS files (see `source(...)` below) instead of the TYPO3
+ * extension tree.
+ */
+@import "./fonts/font-face-jost.css";
+@import "tailwindcss" source("../../../");
+@import "./variants/forced-colors.css";
+@import "./theme.css";
+
+:root {
+	--swiper-navigation-color: #ebebeb;
+	--swiper-pagination-color: #fff;
+	--swiper-pagination-bottom: 1.5rem;
+	--swiper-pagination-bullet-size: 1rem;
+	--swiper-pagination-bullet-horizontal-gap: 0.75rem;
+	--swiper-pagination-bullet-inactive-color: oklch(0.877 0.179 93.02);
+	--swiper-pagination-bullet-inactive-opacity: 1;
+	--swiper-theme-color: oklch(0.877 0.179 93.02);
+}
