@@ -110,3 +110,8 @@ typings/
 # next.js build output
 .next
 .pnpm-store
+
+### BdP Template theme (bun/sass build output + dependency dirs)
+/assets/build/
+/vendor/
+.phpunit.result.cache

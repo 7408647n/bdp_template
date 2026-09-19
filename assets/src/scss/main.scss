@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+// Base design system (ported 1:1 from the TYPO3 sitepackage, see layout.scss)
+@use "layout";
+
+// Stand-alone bundles that used to be separate Vite entries per TYPO3 page type.
+// The WordPress theme ships one global stylesheet, so they are combined here.
+@use "9-stand-alone/news-list" as sa-news-list;
+@use "9-stand-alone/news-detail" as sa-news-detail;
+@use "9-stand-alone/calendarize-list" as sa-calendarize-list;
+@use "9-stand-alone/calendarize-detail" as sa-calendarize-detail;
+@use "9-stand-alone/address-list" as sa-address-list;
+@use "9-stand-alone/address-lv" as sa-address-lv;
+@use "9-stand-alone/instagram-list" as sa-instagram-list;
+@use "9-stand-alone/cookieconsent" as sa-cookieconsent;
+
+// mmenu-js theme used by the mobile navigation
+@use "8-components/mmenu" as components_mmenu;
