@@ -34,5 +34,5 @@ export default Mmenu;
 
 //	Global namespace
 if (window) {
-    window.Mmenu = Mmenu;
+    (window as typeof window & { Mmenu: typeof Mmenu }).Mmenu = Mmenu;
 }

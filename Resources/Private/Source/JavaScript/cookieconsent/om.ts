@@ -1,31 +1,37 @@
+// omCookieGroups is dynamic, third-party JSON from the OM Cookie Consent
+// TYPO3 extension: most keys hold {header?, body?} HTML-fragment arrays,
+// but the 'gtm' key holds a plain string. A single precise interface
+// would misrepresent that shape, so it's kept as `any` here deliberately.
+let omCookieGroups: Record<string, any> = {};
+let omGtmEvents: string[] = [];
+
 try {
-    var omCookieGroups = JSON.parse(document.getElementById('om-cookie-consent').innerHTML);
-    var omGtmEvents = [];
+    omCookieGroups = JSON.parse(document.getElementById('om-cookie-consent')!.innerHTML);
 } catch (err) {
     console.log('OM Cookie Manager: No Cookie Groups found! Maybe you have forgot to set the page id inside the constants of the extension')
 }
 
 
 document.addEventListener('DOMContentLoaded', function () {
-    var panelButtons = document.querySelectorAll('[data-omcookie-panel-save]');
-    var openButtons = document.querySelectorAll('[data-omcookie-panel-show]');
-    var i;
-    var omCookiePanel = document.querySelectorAll('[data-omcookie-panel]')[0];
+    const panelButtons = document.querySelectorAll<HTMLElement>('[data-omcookie-panel-save]');
+    const openButtons = document.querySelectorAll<HTMLElement>('[data-omcookie-panel-show]');
+    let i: number;
+    const omCookiePanel = document.querySelectorAll('[data-omcookie-panel]')[0] as Element | undefined;
     if (omCookiePanel === undefined) return;
-    var openCookiePanel = true;
+    let openCookiePanel = true;
 
     //Enable stuff by Cookie
-    var cookieConsentData = omCookieUtility.getCookie('omCookieConsent');
+    const cookieConsentData = omCookieUtility.getCookie('omCookieConsent');
     if (cookieConsentData !== null && cookieConsentData.length > 0) {
         //dont open the panel if we have the cookie
         openCookiePanel = false;
-        var checkboxes = document.querySelectorAll('[data-omcookie-panel-grp]');
-        var cookieConsentGrps = cookieConsentData.split(',');
-        var cookieConsentActiveGrps = '';
+        const checkboxes = document.querySelectorAll<HTMLInputElement>('[data-omcookie-panel-grp]');
+        const cookieConsentGrps = cookieConsentData.split(',');
+        let cookieConsentActiveGrps = '';
 
         for (i = 0; i < cookieConsentGrps.length; i++) {
             if (cookieConsentGrps[i] !== 'dismiss') {
-                var grpSettings = cookieConsentGrps[i].split('.');
+                const grpSettings = cookieConsentGrps[i].split('.');
                 if (parseInt(grpSettings[1]) === 1) {
                     omCookieEnableCookieGrp(grpSettings[0]);
                     cookieConsentActiveGrps += grpSettings[0] + ',';
@@ -33,11 +39,12 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
         for (i = 0; i < checkboxes.length; i++) {
-            if (cookieConsentActiveGrps.indexOf(checkboxes[i].value) !== -1) {
+            // delimiters prevent 'group-1' from matching 'group-12'
+            if ((',' + cookieConsentActiveGrps).indexOf(',' + checkboxes[i].value + ',') !== -1) {
                 checkboxes[i].checked = true;
             }
             //check if we have a new group
-            if (cookieConsentData.indexOf(checkboxes[i].value) === -1) {
+            if ((',' + cookieConsentData).indexOf(',' + checkboxes[i].value + '.') === -1) {
                 openCookiePanel = true;
             }
         }
@@ -65,10 +72,10 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 //activates the groups
-var omCookieSaveAction = function () {
+const omCookieSaveAction = function (this: HTMLElement) {
     const action = this.getAttribute('data-omcookie-panel-save');
-    const checkboxes = document.querySelectorAll('[data-omcookie-panel-grp]');
-    var i;
+    const checkboxes = document.querySelectorAll<HTMLInputElement>('[data-omcookie-panel-grp]');
+    let i: number;
     //check if we have a cookie
     let cookie = omCookieUtility.getCookie('omCookieConsent');
     if (cookie === null || cookie.length <= 0) {
@@ -77,7 +84,8 @@ var omCookieSaveAction = function () {
     } else {
         //reset all values inside the cookie which are present in the actual panel
         for (i = 0; i < checkboxes.length; i++) {
-            cookie = cookie.replace(new RegExp(checkboxes[i].value + '\\S{3}'), '');
+            const groupKey = checkboxes[i].value;
+            cookie = cookie.split(',').filter(token => token.split('.')[0] !== groupKey).join(',');
         }
     }
     //save the group id (group-x) and the made choice (.0 for group denied and .1 for group accepted)
@@ -121,32 +129,32 @@ var omCookieSaveAction = function () {
     omTriggerPanelEvent(['cookieconsentsave', 'cookieconsentscriptsloaded']);
 
     setTimeout(function () {
-        document.querySelectorAll('[data-omcookie-panel]')[0].classList.toggle('active');
+        (document.querySelectorAll('[data-omcookie-panel]')[0] as Element).classList.toggle('active');
     }, 350)
 
 };
 
-var omTriggerPanelEvent = function (events) {
+const omTriggerPanelEvent = function (events: string[]) {
     events.forEach(function (event) {
-        var eventObj = new CustomEvent(event, {bubbles: true});
-        document.querySelectorAll('[data-omcookie-panel]')[0].dispatchEvent(eventObj);
+        const eventObj = new CustomEvent(event, {bubbles: true});
+        (document.querySelectorAll('[data-omcookie-panel]')[0] as Element).dispatchEvent(eventObj);
     })
 };
 
-var pushGtmEvents = function (events) {
-    window.dataLayer = window.dataLayer || [];
+const pushGtmEvents = function (events: string[]) {
+    const dataLayer = window.dataLayer = window.dataLayer || [];
     events.forEach(function (event) {
-        window.dataLayer.push({
+        dataLayer.push({
             'event': event,
         });
     });
 };
-var omCookieEnableCookieGrp = function (groupKey) {
+const omCookieEnableCookieGrp = function (groupKey: string) {
     if (omCookieGroups[groupKey] !== undefined) {
-        for (var key in omCookieGroups[groupKey]) {
+        for (const key in omCookieGroups[groupKey]) {
             // skip loop if the property is from prototype
-            if (!omCookieGroups[groupKey].hasOwnProperty(key)) continue;
-            var obj = omCookieGroups[groupKey][key];
+            if (!Object.prototype.hasOwnProperty.call(omCookieGroups[groupKey], key)) continue;
+            const obj = omCookieGroups[groupKey][key];
             //save gtm event for pushing
             if (key === 'gtm') {
                 if (omCookieGroups[groupKey][key]) {
@@ -155,26 +163,26 @@ var omCookieEnableCookieGrp = function (groupKey) {
                 continue;
             }
             //set the cookie html
-            for (var prop in obj) {
+            for (const prop in obj) {
                 // skip loop if the property is from prototype
-                if (!obj.hasOwnProperty(prop)) continue;
+                if (!Object.prototype.hasOwnProperty.call(obj, prop)) continue;
 
                 if (Array.isArray(obj[prop])) {
-                    var content = '';
+                    let content = '';
                     //get the html content
-                    obj[prop].forEach(function (htmlContent) {
+                    obj[prop].forEach(function (htmlContent: string) {
                         content += htmlContent
                     });
-                    var range = document.createRange();
+                    const range = document.createRange();
                     if (prop === 'header') {
                         // add the html to header
                         range.selectNode(document.getElementsByTagName('head')[0]);
-                        var documentFragHead = range.createContextualFragment(content);
+                        const documentFragHead = range.createContextualFragment(content);
                         document.getElementsByTagName('head')[0].appendChild(documentFragHead);
                     } else {
                         //add the html to body
                         range.selectNode(document.getElementsByTagName('body')[0]);
-                        var documentFragBody = range.createContextualFragment(content);
+                        const documentFragBody = range.createContextualFragment(content);
                         document.getElementsByTagName('body')[0].appendChild(documentFragBody);
                     }
                 }
@@ -184,32 +192,31 @@ var omCookieEnableCookieGrp = function (groupKey) {
         delete omCookieGroups[groupKey];
     }
 };
-var omCookieUtility = {
-    getCookie: function (name) {
-        var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+const omCookieUtility = {
+    getCookie: function (name: string): string | null {
+        const v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
         return v ? v[2] : null;
     },
-    setCookie: function (name, value, days) {
-        var d = new Date;
+    setCookie: function (name: string, value: string, days: number): void {
+        const d = new Date();
         d.setTime(d.getTime() + 24 * 60 * 60 * 1000 * days);
-        document.cookie = name + "=" + value + ";path=/;expires=" + d.toGMTString() + ";SameSite=Lax";
+        document.cookie = name + "=" + value + ";path=/;expires=" + d.toUTCString() + ";SameSite=Lax";
     },
-    deleteCookie: function (name) {
-        setCookie(name, '', -1);
+    deleteCookie: function (name: string): void {
+        omCookieUtility.setCookie(name, '', -1);
     }
 };
 
 (function () {
 
-    if (typeof window.CustomEvent === "function") return false;
+    if (typeof (window as any).CustomEvent === "function") return false;
 
-    function CustomEvent(event, params) {
+    function CustomEvent(event: string, params?: CustomEventInit) {
         params = params || {bubbles: false, cancelable: false, detail: null};
-        var evt = document.createEvent('CustomEvent');
+        const evt = document.createEvent('CustomEvent');
         evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
         return evt;
     }
 
-    window.CustomEvent = CustomEvent;
+    (window as any).CustomEvent = CustomEvent;
 })();
-

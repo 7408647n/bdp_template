@@ -1,4 +1,4 @@
-export function detectIE() {
+export function detectIE(): boolean {
     const ua = window.navigator.userAgent;
     // IE <= 10
     const msie = ua.indexOf('MSIE');

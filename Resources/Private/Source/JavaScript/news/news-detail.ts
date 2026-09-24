@@ -3,7 +3,7 @@ import 'lightgallery/css/lightgallery-bundle.min.css'
 import Masonry from "masonry-layout";
 import lightGallery from 'lightgallery';
 
-const mediaContainer = document.querySelector('.news-article__media')
+const mediaContainer = document.querySelector<HTMLElement>('.news-article__media')
 if (mediaContainer) {
     const newsDetail = new Masonry(mediaContainer, {
         itemSelector: '.news-article__media__item',
@@ -18,6 +18,3 @@ if (mediaContainer) {
         subHtmlSelectorRelative: true
     });
 }
-
-
-

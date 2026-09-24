@@ -1,2 +1,7 @@
-onlyBuiltDependencies:
-  - esbuild
+allowBuilds:
+  '@parcel/watcher': true
+  core-js: true
+  cwebp-bin: true
+  esbuild: true
+  mozjpeg: true
+  sharp: true

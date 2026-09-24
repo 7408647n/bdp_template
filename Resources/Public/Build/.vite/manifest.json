@@ -167,10 +167,10 @@
     "file": "Media/holzhintergrund_1-CQjyH3XO.jpg",
     "src": "Resources/Private/Source/Images/holzhintergrund_1.jpg"
   },
-  "Resources/Private/Source/JavaScript/AddressList.entry.js": {
+  "Resources/Private/Source/JavaScript/AddressList.entry.ts": {
     "file": "Js/AddressList.entry-BAKYndi6.js",
     "name": "AddressList.entry",
-    "src": "Resources/Private/Source/JavaScript/AddressList.entry.js",
+    "src": "Resources/Private/Source/JavaScript/AddressList.entry.ts",
     "isEntry": true,
     "imports": [
       "_masonry-M7VMX1Uu.js"
@@ -179,10 +179,10 @@
       "Css/AddressList-CASSr_w9.css"
     ]
   },
-  "Resources/Private/Source/JavaScript/AddressLv.entry.js": {
+  "Resources/Private/Source/JavaScript/AddressLv.entry.ts": {
     "file": "Js/AddressLv.entry-CaiTf45T.js",
     "name": "AddressLv.entry",
-    "src": "Resources/Private/Source/JavaScript/AddressLv.entry.js",
+    "src": "Resources/Private/Source/JavaScript/AddressLv.entry.ts",
     "isEntry": true,
     "imports": [
       "_masonry-M7VMX1Uu.js"
@@ -191,37 +191,37 @@
       "Css/AddressLv-CxFa4RS-.css"
     ]
   },
-  "Resources/Private/Source/JavaScript/CalendarizeDetail.entry.js": {
+  "Resources/Private/Source/JavaScript/CalendarizeDetail.entry.ts": {
     "file": "Js/CalendarizeDetail.entry-CoOZkUkY.js",
     "name": "CalendarizeDetail.entry",
-    "src": "Resources/Private/Source/JavaScript/CalendarizeDetail.entry.js",
+    "src": "Resources/Private/Source/JavaScript/CalendarizeDetail.entry.ts",
     "isEntry": true,
     "css": [
       "Css/CalendarizeDetail-YK22A34s.css"
     ]
   },
-  "Resources/Private/Source/JavaScript/CalendarizeList.entry.js": {
+  "Resources/Private/Source/JavaScript/CalendarizeList.entry.ts": {
     "file": "Js/CalendarizeList.entry-QbnQJNWy.js",
     "name": "CalendarizeList.entry",
-    "src": "Resources/Private/Source/JavaScript/CalendarizeList.entry.js",
+    "src": "Resources/Private/Source/JavaScript/CalendarizeList.entry.ts",
     "isEntry": true,
     "css": [
       "Css/CalendarizeList-Bn2njYof.css"
     ]
   },
-  "Resources/Private/Source/JavaScript/Cookiemanager.entry.js": {
-    "file": "Js/Cookiemanager.entry-Dv1b-MMZ.js",
+  "Resources/Private/Source/JavaScript/Cookiemanager.entry.ts": {
+    "file": "Js/Cookiemanager.entry-Bnd-zm8e.js",
     "name": "Cookiemanager.entry",
-    "src": "Resources/Private/Source/JavaScript/Cookiemanager.entry.js",
+    "src": "Resources/Private/Source/JavaScript/Cookiemanager.entry.ts",
     "isEntry": true,
     "css": [
       "Css/Cookiemanager-vohHK0fD.css"
     ]
   },
-  "Resources/Private/Source/JavaScript/InstagramList.entry.js": {
+  "Resources/Private/Source/JavaScript/InstagramList.entry.ts": {
     "file": "Js/InstagramList.entry-CyTKITrB.js",
     "name": "InstagramList.entry",
-    "src": "Resources/Private/Source/JavaScript/InstagramList.entry.js",
+    "src": "Resources/Private/Source/JavaScript/InstagramList.entry.ts",
     "isEntry": true,
     "css": [
       "Css/InstagramList-DT-nti48.css"
@@ -230,10 +230,10 @@
       "Media/ig-B_8LRiyU.svg"
     ]
   },
-  "Resources/Private/Source/JavaScript/Main.entry.js": {
-    "file": "Js/Main.entry-BrLkNA6A.js",
+  "Resources/Private/Source/JavaScript/Main.entry.ts": {
+    "file": "Js/Main.entry-DotocsjZ.js",
     "name": "Main.entry",
-    "src": "Resources/Private/Source/JavaScript/Main.entry.js",
+    "src": "Resources/Private/Source/JavaScript/Main.entry.ts",
     "isEntry": true,
     "css": [
       "Css/Main-D0Ty9c-X.css"
@@ -275,10 +275,10 @@
       "Media/holzhintergrund_1-CQjyH3XO.jpg"
     ]
   },
-  "Resources/Private/Source/JavaScript/NewsDetail.entry.js": {
+  "Resources/Private/Source/JavaScript/NewsDetail.entry.ts": {
     "file": "Js/NewsDetail.entry-htSbBXYq.js",
     "name": "NewsDetail.entry",
-    "src": "Resources/Private/Source/JavaScript/NewsDetail.entry.js",
+    "src": "Resources/Private/Source/JavaScript/NewsDetail.entry.ts",
     "isEntry": true,
     "imports": [
       "_masonry-M7VMX1Uu.js"
@@ -294,10 +294,10 @@
       "Media/loading-BZOHaeKn.gif"
     ]
   },
-  "Resources/Private/Source/JavaScript/NewsList.entry.js": {
+  "Resources/Private/Source/JavaScript/NewsList.entry.ts": {
     "file": "Js/NewsList.entry-D9TJVLmI.js",
     "name": "NewsList.entry",
-    "src": "Resources/Private/Source/JavaScript/NewsList.entry.js",
+    "src": "Resources/Private/Source/JavaScript/NewsList.entry.ts",
     "isEntry": true,
     "imports": [
       "_masonry-M7VMX1Uu.js"

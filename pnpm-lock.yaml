@@ -12,9 +12,12 @@ importers:
         specifier: ^2.8.3
         version: 2.8.3
     devDependencies:
+      '@types/node':
+        specifier: ^22.13.0
+        version: 22.20.3
       '@vheemstra/vite-plugin-imagemin':
         specifier: ^2.2.0
-        version: 2.2.0(vite@6.3.5(@types/node@24.1.0)(sass@1.89.2))
+        version: 2.2.0(vite@6.3.5(@types/node@22.20.3)(sass@1.89.2))
       autoprefixer:
         specifier: ^10.4.21
         version: 10.4.21(postcss@8.5.6)
@@ -45,12 +48,15 @@ importers:
       sass:
         specifier: ^1.89.2
         version: 1.89.2
+      typescript:
+        specifier: ^5.7.3
+        version: 5.9.3
       vite:
         specifier: ^6.3.5
-        version: 6.3.5(@types/node@24.1.0)(sass@1.89.2)
+        version: 6.3.5(@types/node@22.20.3)(sass@1.89.2)
       vite-plugin-auto-origin:
         specifier: ^1.2.2
-        version: 1.2.2(vite@6.3.5(@types/node@24.1.0)(sass@1.89.2))
+        version: 1.2.2(vite@6.3.5(@types/node@22.20.3)(sass@1.89.2))
       vite-plugin-banner:
         specifier: ^0.8.1
         version: 0.8.1
@@ -550,6 +556,9 @@ packages:
 
   '@types/keyv@3.1.4':
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
+
+  '@types/node@22.20.3':
+    resolution: {integrity: sha512-DZmzkmwHzXrLPAXPyKNDzlIwMMUZCVacoD25ywdy5YTKGbOx/2ld+Q38Im2zJ0vBuZP5Prd3VZutKZyXwkOS8A==}
 
   '@types/node@24.1.0':
     resolution: {integrity: sha512-ut5FthK5moxFKH2T1CUOC6ctR67rQRvvHdFLCD2Ql6KXmMuCrjsSsRI9UsLCm9M18BMwClv4pn327UvB7eeO1w==}
@@ -1702,12 +1711,20 @@ packages:
     resolution: {integrity: sha512-nAYYwfY3qnzX30IkA6AQZjVbtK6duGontcQm1WSG1MD94YLqK0515GNApXkoxKOWMusVssAHWLh9SeaoefYFGw==}
     engines: {node: '>= 0.4'}
 
+  typescript@5.9.3:
+    resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
   uint8array-extras@1.4.0:
     resolution: {integrity: sha512-ZPtzy0hu4cZjv3z5NW9gfKnNLjoz4y6uv4HlelAjDK7sY/xOkKZv9xK/WQpcsBB3jEybChz9DPC2U/+cusjJVQ==}
     engines: {node: '>=18'}
 
   unbzip2-stream@1.4.3:
     resolution: {integrity: sha512-mlExGW4w71ebDJviH16lQLtZS32VKqsSfk80GCfUlwT/4/hNRFsoscrF/c++9xinkMzECL1uL9DDwXqFWkruPg==}
+
+  undici-types@6.21.0:
+    resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
 
   undici-types@7.8.0:
     resolution: {integrity: sha512-9UJ2xGDvQ43tYyVMpuHlsgApydB8ZKfVYTsLDhXkFL/6gfkp+U8xTGdh8pMJv1SpZna0zxG1DwsKZsreLbXBxw==}
@@ -2140,6 +2157,10 @@ snapshots:
     dependencies:
       '@types/node': 24.1.0
 
+  '@types/node@22.20.3':
+    dependencies:
+      undici-types: 6.21.0
+
   '@types/node@24.1.0':
     dependencies:
       undici-types: 7.8.0
@@ -2148,14 +2169,14 @@ snapshots:
     dependencies:
       '@types/node': 24.1.0
 
-  '@vheemstra/vite-plugin-imagemin@2.2.0(vite@6.3.5(@types/node@24.1.0)(sass@1.89.2))':
+  '@vheemstra/vite-plugin-imagemin@2.2.0(vite@6.3.5(@types/node@22.20.3)(sass@1.89.2))':
     dependencies:
       chalk: 5.4.1
       fast-glob: 3.3.3
       fs-extra: 11.3.0
       imagemin: 9.0.1
       is-apng: 1.2.0
-      vite: 6.3.5(@types/node@24.1.0)(sass@1.89.2)
+      vite: 6.3.5(@types/node@22.20.3)(sass@1.89.2)
 
   ansi-colors@1.1.0:
     dependencies:
@@ -3398,12 +3419,16 @@ snapshots:
       es-errors: 1.3.0
       is-typed-array: 1.1.15
 
+  typescript@5.9.3: {}
+
   uint8array-extras@1.4.0: {}
 
   unbzip2-stream@1.4.3:
     dependencies:
       buffer: 5.7.1
       through: 2.3.8
+
+  undici-types@6.21.0: {}
 
   undici-types@7.8.0: {}
 
@@ -3431,9 +3456,9 @@ snapshots:
 
   uuid@3.4.0: {}
 
-  vite-plugin-auto-origin@1.2.2(vite@6.3.5(@types/node@24.1.0)(sass@1.89.2)):
+  vite-plugin-auto-origin@1.2.2(vite@6.3.5(@types/node@22.20.3)(sass@1.89.2)):
     dependencies:
-      vite: 6.3.5(@types/node@24.1.0)(sass@1.89.2)
+      vite: 6.3.5(@types/node@22.20.3)(sass@1.89.2)
 
   vite-plugin-banner@0.8.1: {}
 
@@ -3444,7 +3469,7 @@ snapshots:
     transitivePeerDependencies:
       - rollup
 
-  vite@6.3.5(@types/node@24.1.0)(sass@1.89.2):
+  vite@6.3.5(@types/node@22.20.3)(sass@1.89.2):
     dependencies:
       esbuild: 0.25.8
       fdir: 6.4.6(picomatch@4.0.3)
@@ -3453,7 +3478,7 @@ snapshots:
       rollup: 4.45.1
       tinyglobby: 0.2.14
     optionalDependencies:
-      '@types/node': 24.1.0
+      '@types/node': 22.20.3
       fsevents: 2.3.3
       sass: 1.89.2
 

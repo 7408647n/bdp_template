@@ -4,7 +4,7 @@ import {fileURLToPath} from "node:url"
 import banner from 'vite-plugin-banner'
 import autoOrigin from "vite-plugin-auto-origin"
 import pkg from './package.json'
-import { compression, defineAlgorithm } from 'vite-plugin-compression2'
+import {compression, defineAlgorithm} from 'vite-plugin-compression2'
 import viteImagemin from '@vheemstra/vite-plugin-imagemin'
 import imageminMozjpeg from 'imagemin-mozjpeg'
 import imageminWebp from 'imagemin-webp'
@@ -18,15 +18,15 @@ const VITE_TYPO3_ROOT = "./";
 
 // Vite input files (relative to TYPO3 root path)
 const VITE_ENTRYPOINTS = [
-    'Resources/Private/Source/JavaScript/Main.entry.js',
-    'Resources/Private/Source/JavaScript/NewsList.entry.js',
-    'Resources/Private/Source/JavaScript/NewsDetail.entry.js',
-    'Resources/Private/Source/JavaScript/CalendarizeList.entry.js',
-    'Resources/Private/Source/JavaScript/CalendarizeDetail.entry.js',
-    'Resources/Private/Source/JavaScript/AddressList.entry.js',
-    'Resources/Private/Source/JavaScript/AddressLv.entry.js',
-    'Resources/Private/Source/JavaScript/Cookiemanager.entry.js',
-    'Resources/Private/Source/JavaScript/InstagramList.entry.js',
+    'Resources/Private/Source/JavaScript/Main.entry.ts',
+    'Resources/Private/Source/JavaScript/NewsList.entry.ts',
+    'Resources/Private/Source/JavaScript/NewsDetail.entry.ts',
+    'Resources/Private/Source/JavaScript/CalendarizeList.entry.ts',
+    'Resources/Private/Source/JavaScript/CalendarizeDetail.entry.ts',
+    'Resources/Private/Source/JavaScript/AddressList.entry.ts',
+    'Resources/Private/Source/JavaScript/AddressLv.entry.ts',
+    'Resources/Private/Source/JavaScript/Cookiemanager.entry.ts',
+    'Resources/Private/Source/JavaScript/InstagramList.entry.ts',
 ];
 
 // Output path for generated assets
@@ -53,18 +53,19 @@ export default defineConfig({
                 //   return 'js/main.min.js';
                 // },
                 assetFileNames: assetInfo => {
-                    const info = assetInfo.name.split('.');
+                    const name = assetInfo.name ?? '';
+                    const info = name.split('.');
                     const extType = info[info.length - 1];
-                    if (/\.(png|jpe?g|gif|svg|webp|webm|mp3|avif)$/.test(assetInfo.name)) {
+                    if (/\.(png|jpe?g|gif|svg|webp|webm|mp3|avif)$/.test(name)) {
                         return `Media/[name]-[hash].${extType}`;
                     }
-                    if (/\.(css)$/.test(assetInfo.name)) {
+                    if (/\.(css)$/.test(name)) {
                         return `Css/[name]-[hash].${extType}`;
                     }
-                    if (/\.(woff|woff2|eot|ttf|otf)$/.test(assetInfo.name)) {
+                    if (/\.(woff|woff2|eot|ttf|otf)$/.test(name)) {
                         return `Fonts/[name]-[hash].${extType}`;
                     }
-                    if (/\.(ico)$/.test(assetInfo.name)) {
+                    if (/\.(ico)$/.test(name)) {
                         return `[name]-[hash].${extType}`;
                     }
                     return `Other/[name]-[hash].${extType}`;
@@ -87,7 +88,7 @@ export default defineConfig({
         autoOrigin(),
         compression({
             algorithms: [
-                defineAlgorithm('deflate', { level: 9 }),
+                defineAlgorithm('deflate', {level: 9}),
                 defineAlgorithm('brotliCompress', {
                     params: {
                         [constants.BROTLI_PARAM_QUALITY]: 11

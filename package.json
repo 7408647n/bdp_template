@@ -9,13 +9,15 @@
     "url": "https://github.com/pfadfinden/bdp_template.git"
   },
   "license": "GPL-2.0-or-later",
-  "main": "vite.config.js",
+  "main": "vite.config.ts",
   "type": "module",
+  "packageManager": "pnpm@11.21.0",
   "engines": {
     "node": ">=20.0.0",
-    "pnpm": ">=8.0.0"
+    "pnpm": ">=11.21.0"
   },
   "devDependencies": {
+    "@types/node": "^22.13.0",
     "@vheemstra/vite-plugin-imagemin": "^2.2.0",
     "autoprefixer": "^10.4.21",
     "core-js": "^3.44.0",
@@ -27,6 +29,7 @@
     "masonry-layout": "^4.2.2",
     "mmenu-js": "^9.3.0",
     "sass": "^1.89.2",
+    "typescript": "^5.7.3",
     "vite": "^6.3.5",
     "vite-plugin-auto-origin": "^1.2.2",
     "vite-plugin-banner": "^0.8.1",
@@ -34,7 +37,8 @@
   },
   "scripts": {
     "dev": "vite serve",
-    "build": "vite build"
+    "build": "tsc --noEmit && tsc --noEmit -p tsconfig.node.json && vite build",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p tsconfig.node.json"
   },
   "dependencies": {
     "lightgallery": "^2.8.3"
