@@ -1,17 +1,8 @@
 {
-  "Resources/Private/Sources/Entry/Cookieman.entry.js": {
-    "file": "Js/Cookieman.entry-BUViwrG4.js",
-    "name": "Cookieman.entry",
-    "src": "Resources/Private/Sources/Entry/Cookieman.entry.js",
-    "isEntry": true,
-    "css": [
-      "Css/Cookieman-pvxkJjp9.css"
-    ]
-  },
-  "Resources/Private/Sources/Entry/Headerslider.entry.js": {
-    "file": "Js/Headerslider.entry-wZl8IMBi.js",
+  "Resources/Private/Sources/Entry/Headerslider.entry.ts": {
+    "file": "Js/Headerslider.entry-DsvVucYp.js",
     "name": "Headerslider.entry",
-    "src": "Resources/Private/Sources/Entry/Headerslider.entry.js",
+    "src": "Resources/Private/Sources/Entry/Headerslider.entry.ts",
     "isEntry": true,
     "imports": [
       "_navigation-Cyfumqw5.js"
@@ -20,23 +11,60 @@
       "Css/Headerslider-CsAyU8sB.css"
     ]
   },
-  "Resources/Private/Sources/Entry/InstagramBusiness.entry.js": {
+  "Resources/Private/Sources/Entry/InstagramBusiness.entry.ts": {
     "file": "Js/InstagramBusiness.entry-YD5bBBo2.js",
     "name": "InstagramBusiness.entry",
-    "src": "Resources/Private/Sources/Entry/InstagramBusiness.entry.js",
+    "src": "Resources/Private/Sources/Entry/InstagramBusiness.entry.ts",
     "isEntry": true,
     "imports": [
       "_navigation-Cyfumqw5.js"
     ]
   },
-  "Resources/Private/Sources/Entry/Main.entry.js": {
-    "file": "Js/Main.entry-BG1BnJ0w.js",
+  "Resources/Private/Sources/Entry/Main.entry.ts": {
+    "file": "Js/Main.entry-CScx9pIb.js",
     "name": "Main.entry",
-    "src": "Resources/Private/Sources/Entry/Main.entry.js",
+    "src": "Resources/Private/Sources/Entry/Main.entry.ts",
     "isEntry": true,
     "css": [
-      "Css/Main-DS6HmZbf.css"
+      "Css/Main-Cgf9oeo7.css"
+    ],
+    "assets": [
+      "Fonts/jost-cyrillic-BqejVrLg.woff2",
+      "Fonts/jost-greek-k_hp0-Uh.woff2",
+      "Fonts/jost-vietnamese-mvitANAA.woff2",
+      "Fonts/jost-math-DUS3fnjd.woff2",
+      "Fonts/jost-symbols-KHwna8_t.woff2",
+      "Fonts/jost-latin-ext-ayhDQ9Z0.woff2",
+      "Fonts/jost-latin-BNIRKQTS.woff2"
     ]
+  },
+  "Resources/Private/Sources/Fonts/Jost/jost-cyrillic.woff2": {
+    "file": "Fonts/jost-cyrillic-BqejVrLg.woff2",
+    "src": "Resources/Private/Sources/Fonts/Jost/jost-cyrillic.woff2"
+  },
+  "Resources/Private/Sources/Fonts/Jost/jost-greek.woff2": {
+    "file": "Fonts/jost-greek-k_hp0-Uh.woff2",
+    "src": "Resources/Private/Sources/Fonts/Jost/jost-greek.woff2"
+  },
+  "Resources/Private/Sources/Fonts/Jost/jost-latin-ext.woff2": {
+    "file": "Fonts/jost-latin-ext-ayhDQ9Z0.woff2",
+    "src": "Resources/Private/Sources/Fonts/Jost/jost-latin-ext.woff2"
+  },
+  "Resources/Private/Sources/Fonts/Jost/jost-latin.woff2": {
+    "file": "Fonts/jost-latin-BNIRKQTS.woff2",
+    "src": "Resources/Private/Sources/Fonts/Jost/jost-latin.woff2"
+  },
+  "Resources/Private/Sources/Fonts/Jost/jost-math.woff2": {
+    "file": "Fonts/jost-math-DUS3fnjd.woff2",
+    "src": "Resources/Private/Sources/Fonts/Jost/jost-math.woff2"
+  },
+  "Resources/Private/Sources/Fonts/Jost/jost-symbols.woff2": {
+    "file": "Fonts/jost-symbols-KHwna8_t.woff2",
+    "src": "Resources/Private/Sources/Fonts/Jost/jost-symbols.woff2"
+  },
+  "Resources/Private/Sources/Fonts/Jost/jost-vietnamese.woff2": {
+    "file": "Fonts/jost-vietnamese-mvitANAA.woff2",
+    "src": "Resources/Private/Sources/Fonts/Jost/jost-vietnamese.woff2"
   },
   "_navigation-BJPu9yXy.css": {
     "file": "Css/navigation-BJPu9yXy.css",

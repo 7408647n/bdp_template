@@ -41,18 +41,19 @@ export default defineConfig({
                 entryFileNames: 'Js/[name]-[hash].js', // If you need a specific file name, comment out
                 chunkFileNames: 'Js/[name]-[hash].js', // these lines and uncomment the bottom ones
                 assetFileNames: assetInfo => {
-                    const info = assetInfo.name.split('.');
+                    const name = assetInfo.name ?? '';
+                    const info = name.split('.');
                     const extType = info[info.length - 1];
-                    if (/\.(png|jpe?g|gif|svg|webp|webm|mp3|avif)$/.test(assetInfo.name)) {
+                    if (/\.(png|jpe?g|gif|svg|webp|webm|mp3|avif)$/.test(name)) {
                         return `Media/[name]-[hash].${extType}`;
                     }
-                    if (/\.(css)$/.test(assetInfo.name)) {
+                    if (/\.(css)$/.test(name)) {
                         return `Css/[name]-[hash].${extType}`;
                     }
-                    if (/\.(woff|woff2|eot|ttf|otf)$/.test(assetInfo.name)) {
+                    if (/\.(woff|woff2|eot|ttf|otf)$/.test(name)) {
                         return `Fonts/[name]-[hash].${extType}`;
                     }
-                    if (/\.(ico)$/.test(assetInfo.name)) {
+                    if (/\.(ico)$/.test(name)) {
                         return `[name]-[hash].${extType}`;
                     }
                     return `Other/[name]-[hash].${extType}`;
@@ -60,11 +61,13 @@ export default defineConfig({
             },
         },
         lib: {
+            // vite-plugin-typo3 fills in the entries from Configuration/ViteEntrypoints.json
+            entry: [],
             formats: ["es"],
         }
     },
     optimizeDeps: {
-        include: ['Swiper']
+        include: ['swiper']
     },
     resolve: {
         alias: {

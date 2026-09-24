@@ -1,21 +1,23 @@
 import resizeManger from '../modules/resize-manager'
 import {Transition} from './animation'
 
-let activeSubmenu = '';
+// desktop and mobile menus are separate widgets and keep separate state
+let activeDesktopSubmenu = '';
+let activeMobileSubmenu = '';
 
 
-function mobileSideNavigation(entry) {
+function mobileSideNavigation(entry: { target: Element }): void {
     const mobileSidebar = document.getElementById('mobile-sidebar');
-    const mobileMenuToggler = document.getElementById('mobile-main-menu-toggle');
+    if (!mobileSidebar) {
+        return;
+    }
     if (window.innerWidth <= 1024) {
         const open = !mobileSidebar.classList.contains('hidden');
         if (open) {
-            document.querySelector('body').style.setProperty('overflow', 'hidden');
+            document.querySelector('body')!.style.setProperty('overflow', 'hidden');
         }
     } else {
-        if (mobileSidebar) {
-            document.querySelector('body').style.removeProperty('overflow');
-        }
+        document.querySelector('body')!.style.removeProperty('overflow');
     }
 }
 
@@ -25,16 +27,18 @@ document.addEventListener(
         if (mainMenu) {
             mainMenu.addEventListener(
                 'click', function (event) {
-                    if (event.target.dataset.tid) {
-                        if (event.target.dataset.tid !== activeSubmenu) {
-                            activeSubmenu = event.target.dataset.tid;
+                    // the click can land on a child (span/svg) of the button
+                    const target = (event.target as Element).closest<HTMLElement>('[data-tid]');
+                    if (target && target.dataset.tid) {
+                        if (target.dataset.tid !== activeDesktopSubmenu) {
+                            activeDesktopSubmenu = target.dataset.tid;
                             event.preventDefault();
                         } else {
-                            activeSubmenu = ''
+                            activeDesktopSubmenu = ''
                             event.preventDefault();
                         }
-                        mainMenu.querySelectorAll('button.group\\/navbutton').forEach(function (el) {
-                            if (activeSubmenu !== '' && el.dataset.tid === activeSubmenu) {
+                        mainMenu.querySelectorAll<HTMLElement>('button.group\\/navbutton').forEach(function (el) {
+                            if (activeDesktopSubmenu !== '' && el.dataset.tid === activeDesktopSubmenu) {
                                 el.setAttribute('aria-expanded', 'true');
                             } else {
                                 el.setAttribute('aria-expanded', 'false');
@@ -54,11 +58,11 @@ document.addEventListener(
                     if (open) {
                         mobileMenuToggler.setAttribute('aria-expanded', 'false');
                         mobileSidebar.classList.add('hidden');
-                        document.querySelector('body').style.removeProperty('overflow');
+                        document.querySelector('body')!.style.removeProperty('overflow');
                     } else {
                         mobileMenuToggler.setAttribute('aria-expanded', 'true');
                         mobileSidebar.classList.remove('hidden');
-                        document.querySelector('body').style.setProperty('overflow', 'hidden');
+                        document.querySelector('body')!.style.setProperty('overflow', 'hidden');
                     }
                     event.preventDefault();
                 }
@@ -66,8 +70,8 @@ document.addEventListener(
         }
         const mobileMenu = document.getElementById('mobile-menu');
         if (mobileMenu) {
-            const animations = new Map()
-            mobileMenu.querySelectorAll('.m-submenu').forEach(function (el) {
+            const animations = new Map<string, Transition>()
+            mobileMenu.querySelectorAll<HTMLElement>('.m-submenu').forEach(function (el) {
                 if (el.dataset.sid) {
                     animations.set(el.dataset.sid, new Transition(
                         el,
@@ -83,25 +87,26 @@ document.addEventListener(
             })
             mobileMenu.addEventListener(
                 'click', function (event) {
-                    if (event.target.dataset.tid) {
-                        if (event.target.dataset.tid !== activeSubmenu) {
-                            activeSubmenu = event.target.dataset.tid;
+                    const target = (event.target as Element).closest<HTMLElement>('[data-tid]');
+                    if (target && target.dataset.tid) {
+                        if (target.dataset.tid !== activeMobileSubmenu) {
+                            activeMobileSubmenu = target.dataset.tid;
                             event.preventDefault();
                         } else {
-                            activeSubmenu = ''
+                            activeMobileSubmenu = ''
                             event.preventDefault();
                         }
-                        mobileMenu.querySelectorAll('button.group\\/mnavbutton').forEach(function (el) {
-                            if (activeSubmenu !== '' && el.dataset.tid === activeSubmenu) {
+                        mobileMenu.querySelectorAll<HTMLElement>('button.group\\/mnavbutton').forEach(function (el) {
+                            if (activeMobileSubmenu !== '' && el.dataset.tid === activeMobileSubmenu) {
                                 if (animations.has(el.dataset.tid)) {
                                     el.setAttribute('aria-expanded', 'true');
-                                    animations.get(el.dataset.tid).enter();
+                                    animations.get(el.dataset.tid)!.enter();
                                 }
                             } else {
-                                if (animations.has(el.dataset.tid)) {
+                                if (animations.has(el.dataset.tid!)) {
                                     el.setAttribute('aria-expanded', 'false');
-                                    if (animations.get(el.dataset.tid).el.style.display !== 'none') {
-                                        animations.get(el.dataset.tid).leave();
+                                    if (animations.get(el.dataset.tid!)!.el.style.display !== 'none') {
+                                        animations.get(el.dataset.tid!)!.leave();
                                     }
                                 }
                             }

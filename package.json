@@ -1,23 +1,24 @@
 {
   "name": "@pfadfinden/bdp_template",
-  "main": "vite.config.js",
+  "main": "vite.config.ts",
   "type": "module",
   "packageManager": "pnpm@11.21.0",
   "devDependencies": {
     "@tailwindcss/vite": "^4.3.3",
-    "accordion-js": "^3.4.1",
-    "micromodal": "^0.7.0",
+    "@types/node": "^22.20.4",
     "mmenu-js": "^9.3.0",
     "prettier": "^3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
     "swiper": "^14.1.0",
     "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3",
     "vite": "^7.3.6",
     "vite-plugin-compression2": "^2.5.3",
     "vite-plugin-typo3": "^3.0.0"
   },
   "scripts": {
     "dev": "vite serve",
-    "build": "vite build"
+    "build": "tsc -b && vite build",
+    "typecheck": "tsc -b"
   }
 }

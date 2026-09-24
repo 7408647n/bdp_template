@@ -30,6 +30,12 @@
         <trans-unit id="ct.textimage.details">
             <source>Details</source>
         </trans-unit>
+        <trans-unit id="ct.headerslider.pause">
+            <source>Pause slideshow</source>
+        </trans-unit>
+        <trans-unit id="ct.headerslider.play">
+            <source>Play slideshow</source>
+        </trans-unit>
         </body>
     </file>
 </xliff>

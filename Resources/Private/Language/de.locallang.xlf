@@ -30,6 +30,12 @@
             <trans-unit id="ct.textimage.details">
                 <target>Details anzeigen</target>
             </trans-unit>
+            <trans-unit id="ct.headerslider.pause">
+                <target>Diashow anhalten</target>
+            </trans-unit>
+            <trans-unit id="ct.headerslider.play">
+                <target>Diashow abspielen</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

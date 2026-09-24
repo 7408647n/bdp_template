@@ -1,12 +1,14 @@
 const vtcKey = Symbol('_vtc')
 
+type TransitionElement = HTMLElement & { [vtcKey]?: Set<string> }
+
 // synchronously force layout to put elements into a certain state
-function forceReflow(el) {
+function forceReflow(el?: HTMLElement): number {
     const targetDocument = el ? el.ownerDocument : document
     return targetDocument.body.offsetHeight
 }
 
-function addTransitionClass(el, cls) {
+function addTransitionClass(el: TransitionElement, cls: string): void {
     cls.split(/\s+/).forEach(c => c && el.classList.add(c));
     (
         (el)[vtcKey] ||
@@ -14,7 +16,7 @@ function addTransitionClass(el, cls) {
     ).add(cls)
 }
 
-function removeTransitionClass(el, cls) {
+function removeTransitionClass(el: TransitionElement, cls: string): void {
     cls.split(/\s+/).forEach(c => c && el.classList.remove(c))
     const _vtc = (el)[vtcKey]
     if (_vtc) {
@@ -25,13 +27,13 @@ function removeTransitionClass(el, cls) {
     }
 }
 
-function nextFrame(cb) {
+function nextFrame(cb: () => void): void {
     requestAnimationFrame(() => {
         requestAnimationFrame(cb)
     })
 }
 
-const getTransitionDuration = (el) => {
+const getTransitionDuration = (el: Element): number => {
     const style = getComputedStyle(el)
     const durations = style.transitionDuration.split(',').map(s => parseFloat(s) * 1000)
     const delays = style.transitionDelay.split(',').map(s => parseFloat(s) * 1000)
@@ -39,19 +41,32 @@ const getTransitionDuration = (el) => {
     return Math.max(...totalDurations, 0)
 }
 
-const removeAllTransitionClasses = (el, ...classes) => {
+const removeAllTransitionClasses = (el: TransitionElement, ...classes: string[]): void => {
     classes.forEach(cls => removeTransitionClass(el, cls))
 }
 
 export class Transition {
-    constructor(el,
+    el: TransitionElement;
+    name: string;
+    isEnter: boolean;
+    isLeave: boolean;
+    _cancelEnter: (() => void) | null;
+    _cancelLeave: (() => void) | null;
+    enterFromClass: string;
+    enterActiveClass: string;
+    enterToClass: string;
+    leaveFromClass: string;
+    leaveActiveClass: string;
+    leaveToClass: string;
+
+    constructor(el: HTMLElement,
                 name = 'slide',
-                enterFromClass = undefined,
-                enterActiveClass = undefined,
-                enterToClass = undefined,
-                leaveFromClass = undefined,
-                leaveActiveClass = undefined,
-                leaveToClass = undefined,
+                enterFromClass: string | undefined = undefined,
+                enterActiveClass: string | undefined = undefined,
+                enterToClass: string | undefined = undefined,
+                leaveFromClass: string | undefined = undefined,
+                leaveActiveClass: string | undefined = undefined,
+                leaveToClass: string | undefined = undefined,
     ) {
         this.el = el;
         this.name = name;
@@ -67,7 +82,7 @@ export class Transition {
         this.leaveToClass = leaveToClass ?? `${name}-leave-to`;
     }
 
-    _cleanupEnter() {
+    _cleanupEnter(): void {
         const el = this.el;
         removeAllTransitionClasses(el,
             this.enterFromClass,
@@ -78,7 +93,7 @@ export class Transition {
         this._cancelEnter = null;
     }
 
-    _cleanupLeave() {
+    _cleanupLeave(): void {
         const el = this.el;
         removeAllTransitionClasses(el,
             this.leaveFromClass,
@@ -89,21 +104,21 @@ export class Transition {
         this._cancelLeave = null;
     }
 
-    cancelEnter() {
+    cancelEnter(): void {
         if (this._cancelEnter) {
             this._cancelEnter();
             this._cancelEnter = null;
         }
     }
 
-    cancelLeave() {
+    cancelLeave(): void {
         if (this._cancelLeave) {
             this._cancelLeave();
             this._cancelLeave = null;
         }
     }
 
-    enter() {
+    enter(): Promise<void> {
         // Cancel any ongoing leave transition
         this.cancelLeave();
 
@@ -135,7 +150,7 @@ export class Transition {
                     }
                 };
 
-                const onEnd = (e) => {
+                const onEnd = (e?: Event) => {
                     // Ignore bubbled events from children
                     if (e && e.target !== el) return;
                     done();
@@ -153,7 +168,7 @@ export class Transition {
         });
     }
 
-    leave() {
+    leave(): Promise<void> {
         // Cancel any ongoing enter transition
         this.cancelEnter();
 
@@ -185,7 +200,7 @@ export class Transition {
                     }
                 };
 
-                const onEnd = (e) => {
+                const onEnd = (e?: Event) => {
                     // Ignore bubbled events from children
                     if (e && e.target !== el) return;
                     done();
@@ -203,7 +218,7 @@ export class Transition {
         });
     }
 
-    toggle() {
+    toggle(): Promise<void> {
         if (this.el.style.display === 'none' || getComputedStyle(this.el).display === 'none') {
             return this.enter();
         }

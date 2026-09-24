@@ -6,10 +6,10 @@
 >
 <vac:asset.vite
     manifest="EXT:bdp_template/Resources/Public/Build/.vite/manifest.json"
-    entry="Resources/Private/Sources/Entry/Headerslider.entry.js"
+    entry="Resources/Private/Sources/Entry/Headerslider.entry.ts"
     cssTagAttributes="{media: 'all' }"
 />
-<div id="item-{data.uid}" class="ct-headerslider swiper relative w-full aspect-192/97" {f:editMode(then: 'data-edit="true"')}">
+<div id="item-{data.uid}" class="ct-headerslider swiper relative w-full aspect-192/97" {f:editMode(then: 'data-edit="true"')}>
     <div class="swiper-wrapper">
         <f:for each="{data.slides}" as="slide" iteration="sliderIterator">
             <div class="swiper-slide">
@@ -63,6 +63,16 @@
     <div class="swiper-button-prev !h-full !top-0 !bottom-0 !left-0 !mt-0 !ml-0 px-2 *:hidden hover:*:block"></div>
     <div class="swiper-button-next !h-full !top-0 !bottom-0 !right-0 !mt-0 !mr-0 px-2 *:hidden hover:*:block"></div>
     <div class="swiper-pagination"></div>
+    <f:variable name="pauseLabel" value="{f:translate(key: 'LLL:EXT:bdp_template/Resources/Private/Language/locallang.xlf:ct.headerslider.pause')}" />
+    <button type="button"
+            class="ct-headerslider__toggle absolute top-4 right-14 z-20 flex size-10 cursor-pointer items-center justify-center rounded-full bg-blue-500/70 text-white hover:bg-blue-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            aria-label="{pauseLabel}"
+            data-label-pause="{pauseLabel}"
+            data-label-play="{f:translate(key: 'LLL:EXT:bdp_template/Resources/Private/Language/locallang.xlf:ct.headerslider.play')}"
+            hidden>
+        <svg class="ct-headerslider__icon-pause size-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+        <svg class="ct-headerslider__icon-play size-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" hidden><path d="M8 5v14l11-7z"/></svg>
+    </button>
     <div class="absolute right-0 bottom-0 w-[21.5234375vw] top-0 z-2 bg-yellow-500 mask-[url(Images/clips/headerslider.svg)] mask-cover mask-top-right mask-no-repeat text-blue-500 dark:bg-blue-500 dark:text-white"></div>
 </div>
 </html>
